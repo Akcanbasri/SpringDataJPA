@@ -17,4 +17,8 @@ public class Student {
     private String name;
     @Column(name = "surname", nullable = false, length = 50)
     private String surname;
+    @Column(name = "birth_date", nullable = true)
+    @Temporal(TemporalType.DATE)
+    private LocalDate birthDate;
+
 }
