@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/students")
 @RequiredArgsConstructor
@@ -29,5 +31,15 @@ public class StudentController {
     public ResponseEntity<StudentResponse> saveStudent(@RequestBody StudentSaveRequest request) {
         StudentResponse response = studentService.saveStudent(request);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/find-all")
+    @Operation(summary = "Get all students", description = "Retrieves a list of all registered students.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "List of students successfully retrieved")
+    })
+    public ResponseEntity<List<StudentResponse>> findAll() {
+        List<StudentResponse> students = studentService.findAll();
+        return new ResponseEntity<>(students, HttpStatus.OK);
     }
 }

@@ -11,6 +11,8 @@ import com.basri.SpringDataJPA.util.AgeCalculatorUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class StudentServiceImpl implements IStudentService {
@@ -35,5 +37,11 @@ public class StudentServiceImpl implements IStudentService {
 
         // 4. Conversion using Mapper (Entity -> DTO)
         return studentMapper.toResponse(savedStudent);
+    }
+
+    @Override
+    public List<StudentResponse> findAll() {
+        List<Student> students = studentRepository.findAll();
+        return studentMapper.toResponseList(students);
     }
 }

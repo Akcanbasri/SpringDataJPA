@@ -5,6 +5,9 @@ import com.basri.SpringDataJPA.dto.response.StudentResponse;
 import com.basri.SpringDataJPA.entity.Student;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
 public class StudentMapper {
 
@@ -31,5 +34,15 @@ public class StudentMapper {
                 entity.getSurname(),
                 entity.getBirthDate()
         );
+    }
+
+    // Entity listesini Response listesine çevirir
+    public List<StudentResponse> toResponseList(List<Student> entities) {
+        if (entities == null) {
+            return null;
+        }
+        return entities.stream()
+                .map(this::toResponse)
+                .collect(Collectors.toList());
     }
 }
