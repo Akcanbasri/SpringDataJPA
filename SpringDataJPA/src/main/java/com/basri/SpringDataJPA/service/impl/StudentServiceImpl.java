@@ -5,7 +5,7 @@ import com.basri.SpringDataJPA.dto.response.StudentResponse;
 import com.basri.SpringDataJPA.entity.Student;
 import com.basri.SpringDataJPA.exception.StudentAgeException;
 import com.basri.SpringDataJPA.mapper.StudentMapper;
-import com.basri.SpringDataJPA.repository.StudentRepository;
+import com.basri.SpringDataJPA.repository.IStudentRepository;
 import com.basri.SpringDataJPA.service.IStudentService;
 import com.basri.SpringDataJPA.util.AgeCalculatorUtil;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StudentServiceImpl implements IStudentService {
 
-    private final StudentRepository studentRepository;
+    private final IStudentRepository IStudentRepository;
     private final StudentMapper studentMapper;
 
     @Override
@@ -33,7 +33,7 @@ public class StudentServiceImpl implements IStudentService {
         Student student = studentMapper.toEntity(request);
 
         // 3. Save to database
-        Student savedStudent = studentRepository.save(student);
+        Student savedStudent = IStudentRepository.save(student);
 
         // 4. Conversion using Mapper (Entity -> DTO)
         return studentMapper.toResponse(savedStudent);
@@ -41,7 +41,7 @@ public class StudentServiceImpl implements IStudentService {
 
     @Override
     public List<StudentResponse> findAll() {
-        List<Student> students = studentRepository.findAll();
+        List<Student> students = IStudentRepository.findAll();
         return studentMapper.toResponseList(students);
     }
 }
