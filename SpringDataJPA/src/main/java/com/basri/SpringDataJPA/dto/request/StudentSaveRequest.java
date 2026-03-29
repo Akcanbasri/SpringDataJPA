@@ -20,7 +20,3 @@ public class StudentSaveRequest {
     @Schema(description = "Birth date of the student", example = "2000-01-01")
     private LocalDate birthDate;
 }
-
-    
-
-    

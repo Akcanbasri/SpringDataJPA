@@ -42,4 +42,46 @@ public class StudentController {
         List<StudentResponse> students = studentService.findAll();
         return new ResponseEntity<>(students, HttpStatus.OK);
     }
+
+    @GetMapping("/find-by-name-and-surname")
+    @Operation(summary = "Find student by name and surname", description = "Retrieves a list of students with the specified name and surname.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "List of students successfully retrieved")
+    })
+    public ResponseEntity<List<StudentResponse>> findByNameAndSurname(@RequestParam(required = false) String name,
+            @RequestParam(required = false) String surname) {
+        List<StudentResponse> response = studentService.findByNameAndSurname(name, surname);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/find-by-id")
+    @Operation(summary = "Find student by ID", description = "Retrieves a list of students with the specified ID.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "List of students successfully retrieved")
+    })
+    public ResponseEntity<StudentResponse> findById(@RequestParam int id) {
+        StudentResponse response = studentService.findById(id);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete-by-id")
+    @Operation(summary = "Delete student by ID", description = "Deletes a student with the specified ID.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Student successfully deleted")
+    })
+    public ResponseEntity<StudentResponse> deleteById(@RequestParam int id) {
+        StudentResponse response = studentService.deleteById(id);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @PutMapping("/update-student")
+    @Operation(summary = "Update student by ID", description = "Updates a student with the specified ID.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Student successfully updated")
+    })
+    public ResponseEntity<StudentResponse> updateStudent(@RequestParam int id,
+            @RequestBody StudentSaveRequest request) {
+        StudentResponse response = studentService.updateStudent(id, request);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 }

@@ -24,16 +24,15 @@ public class StudentMapper {
     }
 
     // Entity'yi DTO'ya çevirir
-    public StudentResponse toResponse(Student entity) {
-        if (entity == null) {
+    public StudentResponse toResponse(Student student) {
+        if (student == null) {
             return null;
         }
         return new StudentResponse(
-                entity.getId(),
-                entity.getName(),
-                entity.getSurname(),
-                entity.getBirthDate()
-        );
+                student.getId(),
+                student.getName(),
+                student.getSurname(),
+                student.getBirthDate());
     }
 
     // Entity listesini Response listesine çevirir

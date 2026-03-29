@@ -10,8 +10,14 @@ import java.util.List;
 @Repository
 public interface IStudentRepository extends JpaRepository<Student, Integer> {
 
-    // 1. Yöntem: Derived Query Method (İsimden otomatik sorgu üretilir)
-    List<Student> findByName(String name);
+    // 1. Yöntem: Derived Query Method (İsimden otomatik sorgu üretilir) - IgnoreCase ile büyük/küçük harf duyarsız
+    List<Student> findByNameIgnoreCaseAndSurnameIgnoreCase(String name, String surname);
+
+    List<Student> findByNameIgnoreCase(String name);
+
+    List<Student> findBySurnameIgnoreCase(String surname);
+
+    Student findById(int id);
 
     // 2. Yöntem: JPQL (Java Persistence Query Language - Nesne tabanlı sorgu)
     @Query("SELECT s FROM Student s WHERE s.surname = :surname")
