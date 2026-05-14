@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +29,7 @@ public class StudentController {
             @ApiResponse(responseCode = "201", description = "Student successfully saved"),
             @ApiResponse(responseCode = "400", description = "Invalid student age or data provided")
     })
-    public ResponseEntity<StudentResponse> saveStudent(@RequestBody StudentSaveRequest request) {
+    public ResponseEntity<StudentResponse> saveStudent(@RequestBody @Valid StudentSaveRequest request) {
         StudentResponse response = studentService.saveStudent(request);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
