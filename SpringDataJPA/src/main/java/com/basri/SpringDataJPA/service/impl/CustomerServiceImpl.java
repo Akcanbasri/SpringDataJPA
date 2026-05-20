@@ -4,15 +4,15 @@ import com.basri.SpringDataJPA.dto.request.CustomerSaveRequest;
 import com.basri.SpringDataJPA.dto.response.CustomerResponse;
 import com.basri.SpringDataJPA.entity.Address;
 import com.basri.SpringDataJPA.entity.Customer;
+import com.basri.SpringDataJPA.exception.CustomerNotFoundException;
 import com.basri.SpringDataJPA.mapper.CustomerMapper;
-import com.basri.SpringDataJPA.mapper.StudentMapper;
 import com.basri.SpringDataJPA.repository.ICustomerRepository;
-import com.basri.SpringDataJPA.repository.IStudentRepository;
 import com.basri.SpringDataJPA.service.ICustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -42,4 +42,12 @@ public class CustomerServiceImpl implements ICustomerService {
     public List<CustomerResponse> findAll() {
         return customerMapper.toResponse(customerRepository.findAll());
     }
+
+    @Override
+    public CustomerResponse findById(Integer id) {
+        Customer customer = customerRepository.findById(id)
+                .orElseThrow(() -> new CustomerNotFoundException("Customer not found with id: " + id));
+        return customerMapper.toResponse(customer);
+    }
+
 }

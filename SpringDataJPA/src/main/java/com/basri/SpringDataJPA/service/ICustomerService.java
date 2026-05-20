@@ -8,4 +8,5 @@ import java.util.List;
 public interface ICustomerService {
     CustomerResponse save(CustomerSaveRequest request);
     List<CustomerResponse> findAll();
+    CustomerResponse findById(Integer id);
 }

@@ -35,12 +35,23 @@ public class CustomerController {
     }
 
     @GetMapping("/find-all")
-    @Operation(summary = "Get all customers", description = "Retrieves a list of all registered students.")
+    @Operation(summary = "Get all customers", description = "Retrieves a list of all registered customers.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "List of customers successfully retrieved")
     })
     public ResponseEntity<List<CustomerResponse>> findAll() {
         List<CustomerResponse> customers = customerService.findAll();
         return new ResponseEntity<>(customers, HttpStatus.OK);
+    }
+
+
+    @GetMapping("/find-by-id")
+    @Operation(summary = "Find customer by ID", description = "Retrieves a list of customers with the specified ID.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "List of customers successfully retrieved")
+    })
+    public ResponseEntity<CustomerResponse> findById(@RequestParam int id) {
+        CustomerResponse response = customerService.findById(id);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }
