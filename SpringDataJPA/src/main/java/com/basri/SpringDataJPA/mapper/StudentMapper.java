@@ -4,18 +4,22 @@ import com.basri.SpringDataJPA.dto.request.StudentSaveRequest;
 import com.basri.SpringDataJPA.dto.response.StudentResponse;
 import com.basri.SpringDataJPA.entity.Student;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.MappingConstants;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface StudentMapper {
 
-    // DTO'yu Entity'ye çevirir
+    // StudentSaveRequest → Student (alan isimleri aynı olduğu için @Mapping
+    // gerekmez; id DB tarafından üretildiği için yoksayılır)
+    @Mapping(target = "id", ignore = true)
     Student toEntity(StudentSaveRequest request);
 
-    // Entity'yi DTO'ya çevirir
+    // Student → StudentResponse
     StudentResponse toResponse(Student student);
 
-    // Entity listesini Response listesine çevirir
-    List<StudentResponse> toResponseList(List<Student> entities);
+    // List<Student> → List<StudentResponse> (MapStruct otomatik üretir)
+    List<StudentResponse> toResponseList(List<Student> students);
 }
