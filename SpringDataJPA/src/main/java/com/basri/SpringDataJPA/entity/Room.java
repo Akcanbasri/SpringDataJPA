@@ -5,23 +5,19 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-
 @Entity
-@Table(name = "home")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Home {
+@Table(name = "room")
+public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private BigDecimal price;
+    private String name;
 
-    @OneToMany(mappedBy = "home", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Room> rooms =  new ArrayList<>();
-
+    @ManyToOne
+    @JoinColumn(name = "home_id")
+    private Home home;
 }

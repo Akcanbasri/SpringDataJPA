@@ -1,5 +1,7 @@
-package com.basri.SpringDataJPA.entity;
+package com.basri.SpringDataJPA.dto.response;
 
+import com.basri.SpringDataJPA.entity.Room;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,19 +11,14 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@Table(name = "home")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Home {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+@Schema(description = "Home response DTO")
+public class HomeResponse {
     private int id;
 
     private BigDecimal price;
 
-    @OneToMany(mappedBy = "home", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Room> rooms =  new ArrayList<>();
-
 }
