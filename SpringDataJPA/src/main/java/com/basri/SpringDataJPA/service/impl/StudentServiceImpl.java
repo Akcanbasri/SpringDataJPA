@@ -3,6 +3,7 @@ package com.basri.SpringDataJPA.service.impl;
 import com.basri.SpringDataJPA.dto.request.StudentSaveRequest;
 import com.basri.SpringDataJPA.dto.response.StudentResponse;
 import com.basri.SpringDataJPA.entity.Student;
+import com.basri.SpringDataJPA.exception.HomeNotFoundException;
 import com.basri.SpringDataJPA.exception.StudentAgeException;
 import com.basri.SpringDataJPA.exception.StudentNotFoundException;
 import com.basri.SpringDataJPA.mapper.StudentMapper;
@@ -74,19 +75,18 @@ public class StudentServiceImpl implements IStudentService {
 
     @Override
     public StudentResponse findById(int id) {
-        Optional<Student> student = Optional.ofNullable(IStudentRepository.findById(id));
-        return student.map(studentMapper::toResponse).orElse(null);
+        return Optional.ofNullable(IStudentRepository.findById(id))
+                .map(studentMapper::toResponse)
+                .orElseThrow(() -> new StudentNotFoundException("Student not found with given id : " + id));
     }
 
     @Override
     public StudentResponse deleteById(int id) {
-        Optional<Student> student = Optional.ofNullable(IStudentRepository.findById(id));
-        if (student.isPresent()) {
-            IStudentRepository.deleteById(id);
-            return studentMapper.toResponse(student.get());
-        } else {
-            throw new StudentNotFoundException("Student not found with id: " + id);
-        }
+        Student student = Optional.ofNullable(IStudentRepository.findById(id))
+                .orElseThrow(() -> new StudentNotFoundException("Student not found with given id : " + id));
+
+        IStudentRepository.delete(student);
+        return studentMapper.toResponse(student);
     }
 
     @Override

@@ -13,10 +13,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/homes")
@@ -34,5 +33,35 @@ public class HomeController {
     public ResponseEntity<HomeResponse> saveHome(@RequestBody HomeSaveRequest request) {
        HomeResponse  response = homeService.saveHome(request);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/find-all")
+    @Operation(summary = "find all all rooms", description = "gets all rooms")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "All homes found")
+    })
+    public ResponseEntity<List<HomeResponse>> findAll() {
+       List<HomeResponse>  responses = homeService.findAll();
+       return new ResponseEntity<>(responses, HttpStatus.OK);
+    }
+
+    @GetMapping("/find-by-id")
+    @Operation(summary = "Finds home by id", description = "Finds home by id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Home found with given id")
+    })
+    public  ResponseEntity<HomeResponse> getHomeById(@RequestParam int id){
+        HomeResponse homeResponse = homeService.findById(id);
+        return new ResponseEntity<>(homeResponse, HttpStatus.OK);
+    }
+
+    @PutMapping("/update-home")
+    @Operation(summary = "update home with all fields" ,description = "updating home")
+    @ApiResponses(value =
+            @ApiResponse(responseCode = "200", description = "Home updated succesfulley")
+    )
+    public ResponseEntity<HomeResponse> updateHome(@RequestParam int id ,@RequestBody HomeSaveRequest request) {
+        HomeResponse homeResponse = homeService.updateHome(id, request);
+        return new ResponseEntity<>(homeResponse, HttpStatus.OK);
     }
 }
