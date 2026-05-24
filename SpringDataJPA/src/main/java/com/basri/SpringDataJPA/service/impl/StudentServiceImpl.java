@@ -11,6 +11,7 @@ import com.basri.SpringDataJPA.repository.IStudentRepository;
 import com.basri.SpringDataJPA.service.IStudentService;
 import com.basri.SpringDataJPA.util.AgeCalculatorUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,8 +20,10 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class StudentServiceImpl implements IStudentService {
-
+    @Autowired
     private final IStudentRepository IStudentRepository;
+
+    @Autowired
     private final StudentMapper studentMapper;
 
     @Override

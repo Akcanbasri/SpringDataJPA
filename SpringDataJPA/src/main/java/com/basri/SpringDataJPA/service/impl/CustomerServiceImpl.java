@@ -9,6 +9,7 @@ import com.basri.SpringDataJPA.mapper.CustomerMapper;
 import com.basri.SpringDataJPA.repository.ICustomerRepository;
 import com.basri.SpringDataJPA.service.ICustomerService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,7 +18,10 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class CustomerServiceImpl implements ICustomerService {
+    @Autowired
     private final ICustomerRepository customerRepository;
+
+    @Autowired
     private final CustomerMapper customerMapper;
 
     @Override

@@ -11,4 +11,5 @@ import lombok.NoArgsConstructor;
 public class AddressResponse {
     private int id;
     private String description;
+    private Integer customerId;
 }

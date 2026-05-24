@@ -11,6 +11,7 @@ import com.basri.SpringDataJPA.service.IHomeService;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,7 +20,10 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class HomeServiceImp implements IHomeService {
+    @Autowired
     private final IHomeRepository homeRepository;
+
+    @Autowired
     private final HomeMapper homeMapper;
 
     @Override
