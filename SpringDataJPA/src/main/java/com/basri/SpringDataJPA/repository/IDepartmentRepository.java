@@ -1,13 +1,9 @@
 package com.basri.SpringDataJPA.repository;
 
-import com.basri.SpringDataJPA.entity.Customer;
+import com.basri.SpringDataJPA.entity.Department;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
-public interface ICustomerRepository  extends JpaRepository<Customer, Integer> {
-
-
+public interface IDepartmentRepository extends JpaRepository<Department, Integer> {
 }

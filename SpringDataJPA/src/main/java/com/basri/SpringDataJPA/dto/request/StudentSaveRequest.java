@@ -1,5 +1,6 @@
 package com.basri.SpringDataJPA.dto.request;
 
+import com.basri.SpringDataJPA.entity.Course;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -8,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -31,4 +33,8 @@ public class StudentSaveRequest {
     @NotEmpty
     @Size(min = 11, max = 11)
     private  String tckNo;
+
+    @Schema(description = "Course ids of the student", example = "[1, 2]")
+    @NotEmpty(message = "Course ids can not be empty!")
+    private List<Integer> courseIds;
 }

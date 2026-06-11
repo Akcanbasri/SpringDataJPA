@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -22,4 +23,6 @@ public class StudentResponse {
     
     @Schema(description = "Birth date of the student", example = "2000-01-01")
     private LocalDate birthDate;
+
+    private List<CourseResponse> courses;
 }
