@@ -15,6 +15,7 @@ public interface StudentMapper {
     // StudentSaveRequest → Student (alan isimleri aynı olduğu için @Mapping
     // gerekmez; id DB tarafından üretildiği için yoksayılır)
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "courses", ignore = true)
     Student toEntity(StudentSaveRequest request);
 
     // Student → StudentResponse
